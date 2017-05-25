@@ -1,3 +1,8 @@
+<?php
+    require_once ('lib/swift_required.php');
+    include_once ('controller/contact.php');
+?>
+
 <!DOCTYPE HTML>
 <!--
 	Strata by HTML5 UP
@@ -6,7 +11,12 @@
 -->
 <html>
 	<head>
-		<title>Strata by HTML5 UP</title>
+		<title>Kevin Riehl's Portfolio</title>
+		<meta name="title" content="Kevin Riehl's Portfolio" />
+		<meta name="description" content="This is an online portfolio for Kevin Riehl
+ 											and all my greatest projects" />
+		<meta name="keywords" content="Portfolio, Kevin Riehl, Software Development, Projects" />
+		<meta name="robots" content="index, follow" />
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -65,6 +75,13 @@
 									ssh server to run the correct Powershell command.</p>
 							</article>
 							<article class="6u 12u$(xsmall) work-item">
+								<a href="images/fulls/bikemasters.png" class="image fit thumb"><img src="images/thumbs/bikemasters.jpg" alt="" /></a>
+								<h3>Bike Masters</h3>
+								<p>This project was to build a new website for a local bike shop, built by me and a friend.
+									I was taken onto the project to provide debugging and insight. Using javascript and PHP
+									we were able to create a nice working site for the shop, that is being used today.</p>
+							</article>
+							<article class="6u 12u$(xsmall) work-item">
 								<a href="images/fulls/Evolve.png" class="image fit thumb"><img src="images/thumbs/Evolve.jpg" alt="" /></a>
 								<h3>Evolve Yoga</h3>
 								<p>This was an ambitious project that we started at the beginning of
@@ -101,16 +118,17 @@
 						<p>Feel free to contact me using any of the following links or with the form.</p>
 						<div class="row">
 							<div class="8u 12u$(small)">
-								<form method="post" action="#">
+								<form id="contact" method="post" action="controller/contact.php">
 									<div class="row uniform 50%">
 										<div class="6u 12u$(xsmall)"><input type="text" name="name" id="name" placeholder="Name" /></div>
 										<div class="6u$ 12u$(xsmall)"><input type="email" name="email" id="email" placeholder="Email" /></div>
 										<div class="12u$"><textarea name="message" id="message" placeholder="Message" rows="4"></textarea></div>
 									</div>
+                                    <ul class="actions">
+                                        <li><input type="submit" value="Send Message" /></li>
+                                    </ul>
 								</form>
-								<ul class="actions">
-									<li><input type="submit" value="Send Message" /></li>
-								</ul>
+
 							</div>
 							<div class="4u$ 12u$(small)">
 								<ul class="labeled-icons">
@@ -455,7 +473,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 					<ul class="icons">
 						<li><a href="https://github.com/TehRiehlDeal" target="_blank" class="icon fa-github"><span class="label">Github</span></a></li>
 						<li><a href="https://www.linkedin.com/in/kevin-riehl-0baa75a4" target="_blank" class="icon fa-linkedin-square"><span class="label">LinkedIn</span></a></li>
-						<li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+						<li><a href="#three" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
 					</ul>
 					<ul class="copyright">
 						<li>&copy; 2017</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
@@ -470,6 +488,23 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
+            <script>
+                $('#contact').on('submit', function (e) {
+                    e.preventDefault();
+                    $.ajax({
+                        url: "controller/contact.php",
+                        type: 'POST',
+                        data: $('#contact').serialize(),
+                        success: function (result) {
+                            if(result == 1){
+                                $('#contact').trigger("reset");
+                            } else {
+                                alert(result);
+                            }
+                        }
+                    });
+                })
+            </script>
 
 	</body>
 </html>
